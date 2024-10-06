@@ -31,14 +31,14 @@ class multiworld
         struct subworld_settings
         {
             bool is_temporary = false;
-            bool parallel_world = true;
+            bool parallel_world = false;
             std::string region_type = "default";
         };
         multiworld();
         ~multiworld();
         std::map<std::string,subworld_settings> subworld_manifest; 
         bool load_subworld_manifest();
-        bool save_subworld_manifest( std::ostream &fout );
+        bool save_subworld_manifest();
         std::string get_world_prefix();
         bool create_or_modify_world( const std::string &prefix);
         //currently just the player
