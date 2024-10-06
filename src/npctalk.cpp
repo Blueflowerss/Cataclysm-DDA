@@ -6747,8 +6747,8 @@ talk_effect_fun_t::func f_create_world( const JsonObject &jo, const std::string_
     JsonObject world_jo = jo.get_object(member);
     str_or_var world_prefix = get_str_or_var( world_jo.get_member( "world_prefix" ), "world_prefix",false , "default" );
     str_or_var region_type = get_str_or_var( world_jo.get_member( "region_type" ), "region_type", false, "default" );
-    bool is_temporary = jo.get_bool( "is_temporary", false );
-    bool parallel_world = jo.get_bool( "parallel_world", false );
+    bool is_temporary = world_jo.get_bool( "is_temporary", false );
+    bool parallel_world = world_jo.get_bool( "parallel_world", false );
     return [world_prefix,region_type,is_temporary,parallel_world]( dialogue const & d ) {
         std::string prefix = world_prefix.evaluate(d);
         std::string type = region_type.evaluate(d);

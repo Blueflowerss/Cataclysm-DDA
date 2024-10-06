@@ -82,20 +82,23 @@ bool multiworld::travel_to_world( const std::string &prefix )
     get_weather().nextweather = calendar::turn;
     return true;
 }
-bool load_subworld_manifest() {
+bool multiworld::load_subworld_manifest() {
     return true;
 }
-bool save_subworld_manifest( const cata_path &path ) {
+bool multiworld::save_subworld_manifest() {
     if (MULTIWORLD.subworld_manifest.empty()){
         return true;
     }
-    write_to_file( path, [&]( std::ostream & fout ) {
+    write_to_file( "subworld_manifest.json", [&]( std::ostream & fout ) {
         fout << "# version " << savegame_version << std::endl;
         JsonOut jsout( fout );
         jsout.start_object();
         for (auto it = MULTIWORLD.subworld_manifest.begin(); it != MULTIWORLD.subworld_manifest.end(); ++it)
         {
             jsout.member("world",it->first);
+            jsout.member("region_type",it->second.region_type);
+            jsout.member("is_temporary",it->second.is_temporary);
+            jsout.member("parallel_world",it->second.parallel_world);
         }
         jsout.end_object();
         } );    

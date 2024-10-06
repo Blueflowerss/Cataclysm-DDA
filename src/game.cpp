@@ -3478,6 +3478,7 @@ bool game::save()
             !get_auto_notes_settings().save( true ) ||
             !get_safemode().save_character() ||
             !zone_manager::get_manager().save_zones() ||
+            !MULTIWORLD.save_subworld_manifest() ||
         !write_to_file( PATH_INFO::world_base_save_path() + "/uistate.json", [&]( std::ostream & fout ) {
         JsonOut jsout( fout );
             uistate.serialize( jsout );
