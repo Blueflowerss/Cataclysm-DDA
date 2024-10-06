@@ -14,6 +14,8 @@
 #include <weather.h>
 #include <mapbuffer.h>
 #include <overmapbuffer.h>
+#include "json.h"
+#include "json_loader.h"
 
 multiworld::multiworld() = default;
 multiworld::~multiworld() = default;
@@ -26,6 +28,11 @@ void multiworld::set_world_prefix( std::string prefix )
 std::string multiworld::get_world_prefix()
 {
     return world_prefix;
+}
+//doesn't actually create a world
+bool multiworld::create_or_modify_world( const std::string &prefix){
+    subworld_manifest[prefix] = subworld_settings();
+    return true;
 }
 bool multiworld::travel_to_world( const std::string &prefix )
 {
@@ -73,5 +80,24 @@ bool multiworld::travel_to_world( const std::string &prefix )
     g->update_overmap_seen();
     // update weather now as it could be different on the new location
     get_weather().nextweather = calendar::turn;
+    return true;
+}
+bool load_subworld_manifest() {
+    return true;
+}
+bool save_subworld_manifest( const cata_path &path ) {
+    if (MULTIWORLD.subworld_manifest.empty()){
+        return true;
+    }
+    write_to_file( path, [&]( std::ostream & fout ) {
+        fout << "# version " << savegame_version << std::endl;
+        JsonOut jsout( fout );
+        jsout.start_object();
+        for (auto it = MULTIWORLD.subworld_manifest.begin(); it != MULTIWORLD.subworld_manifest.end(); ++it)
+        {
+            jsout.member("world",it->first);
+        }
+        jsout.end_object();
+        } );    
     return true;
 }

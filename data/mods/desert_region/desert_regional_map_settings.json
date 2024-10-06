@@ -1,7 +1,7 @@
 [
   {
     "type": "region_settings",
-    "id": "default",
+    "id": "desert",
     "overmap_feature_flag_settings": {
       "clear_blacklist": false,
       "blacklist": [ "WASP", "BEE", "ANT", "FUNGAL", "TRIFFID", "FARM" ],

@@ -6742,7 +6742,22 @@ talk_effect_fun_t::func f_teleport( const JsonObject &jo, std::string_view membe
         }
     };
 }
-
+talk_effect_fun_t::func f_create_world( const JsonObject &jo, const std::string_view member,const std::string_view )
+{
+    JsonObject world_jo = jo.get_object(member);
+    str_or_var world_prefix = get_str_or_var( world_jo.get_member( "world_prefix" ), "world_prefix",false , "default" );
+    str_or_var region_type = get_str_or_var( world_jo.get_member( "region_type" ), "region_type", false, "default" );
+    bool is_temporary = jo.get_bool( "is_temporary", false );
+    bool parallel_world = jo.get_bool( "parallel_world", false );
+    return [world_prefix,region_type,is_temporary,parallel_world]( dialogue const & d ) {
+        std::string prefix = world_prefix.evaluate(d);
+        std::string type = region_type.evaluate(d);
+        MULTIWORLD.create_or_modify_world(prefix);
+        MULTIWORLD.subworld_manifest[prefix].region_type = type;
+        MULTIWORLD.subworld_manifest[prefix].is_temporary = is_temporary; 
+        MULTIWORLD.subworld_manifest[prefix].parallel_world = parallel_world;
+    };
+}
 talk_effect_fun_t::func f_wants_to_talk( bool is_npc )
 {
     return [is_npc]( dialogue const & d ) {
@@ -6936,6 +6951,7 @@ parsers = {
     { "reveal_map", jarg::object, &talk_effect_fun::f_reveal_map },
     { "reveal_route", jarg::object, &talk_effect_fun::f_reveal_route },
     { "closest_city", jarg::object, &talk_effect_fun::f_closest_city },
+    { "create_world", jarg::member, &talk_effect_fun::f_create_world },
     { "u_spend_cash", jarg::member | jarg::array, &talk_effect_fun::f_u_spend_cash },
     { "npc_change_faction", jarg::member, &talk_effect_fun::f_npc_change_faction },
     { "npc_change_class", jarg::member, &talk_effect_fun::f_npc_change_class },

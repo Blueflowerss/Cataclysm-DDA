@@ -24,9 +24,23 @@ class multiworld
         //allow access to set_world_prefix
         friend void game::unserialize( std::istream &fin, const cata_path &path );
     public:
+        //struct for a subworld's settings
+        /**@param is_temporary - delete world after travelling out of it
+         * @param parallel_world - don't clear the overmap buffer when travelling into this world
+         * @param region_type - which region blueprint to use when inside the world*/
+        struct subworld_settings
+        {
+            bool is_temporary = false;
+            bool parallel_world = true;
+            std::string region_type = "default";
+        };
         multiworld();
         ~multiworld();
+        std::map<std::string,subworld_settings> subworld_manifest; 
+        bool load_subworld_manifest();
+        bool save_subworld_manifest( std::ostream &fout );
         std::string get_world_prefix();
+        bool create_or_modify_world( const std::string &prefix);
         //currently just the player
         bool travel_to_world( const std::string &prefix );
     private:
@@ -34,7 +48,7 @@ class multiworld
          *  @param set_world_prefix sets the current prefix, it shouldn't be used on it's own
         */
         std::string world_prefix;
-
+        /*the game already loads all regions in the JSON data into 'region_settings_map', so I'm not bothering doing that here.*/
         void set_world_prefix( std::string prefix );
 };
 
