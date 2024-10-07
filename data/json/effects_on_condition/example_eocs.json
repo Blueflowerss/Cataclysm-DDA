@@ -555,9 +555,9 @@
     "//": "Prepares worlds.",
     "global": true,
     "effect": [
-      { "create_world": { "world_prefix": "parallel", "region_type": "default", "parallel_world": true } },
-      { "create_world": { "world_prefix": "temporary", "region_type": "default", "is_temporary": true } },
-      { "create_world": { "world_prefix": "alternate", "region_type": "default" } }
+      { "create_world": { "world_prefix": "parallel", "region_type": "flatland", "parallel_world": true } },
+      { "create_world": { "world_prefix": "temporary", "region_type": "flatland", "is_temporary": true } },
+      { "create_world": { "world_prefix": "alternate", "region_type": "flatland" } }
     ]
   }
 ]
