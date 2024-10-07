@@ -824,7 +824,9 @@ void game::setup()
     timed_events = timed_event_manager();
 
     SCT.vSCT.clear(); //Delete pending messages
-
+    
+    //clear incase loading in different world
+    MULTIWORLD.world_prefix = "";
     stats().clear();
     // reset kill counts
     kill_tracker_ptr->clear();
@@ -3076,6 +3078,12 @@ bool game::load( const save_t &name )
                         abort = true;
                     }
                 }
+            },
+            {
+                _( "Subworlds" ), [&]()
+                {
+                    MULTIWORLD.load_subworld_manifest();
+                }             
             },
             {
                 _( "Map memory" ), [&]()
