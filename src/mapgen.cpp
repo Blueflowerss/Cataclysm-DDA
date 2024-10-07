@@ -330,7 +330,7 @@ void map::generate( const tripoint_abs_omt &p, const time_point &when, bool save
         if( any_missing || !save_results ) {
 
             // At some point, we should add region information so we can grab the appropriate extras
-            map_extras &this_ex = region_settings_map["default"].region_extras[terrain_type->get_extras()];
+            map_extras &this_ex = region_settings_map[MULTIWORLD.get_current_world_region_type()].region_extras[terrain_type->get_extras()];
             map_extras ex = this_ex.filtered_by( dat );
             if( this_ex.chance > 0 && ex.values.empty() && !this_ex.values.empty() ) {
                 DebugLog( D_WARNING, D_MAP_GEN ) << "Overmap terrain " << terrain_type->get_type_id().str() <<
