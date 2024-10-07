@@ -67,12 +67,12 @@
       "river_floodplain_buffer_distance_max": 0
     },
     "overmap_connection_settings": {
-      "intra_city_road_connection": "local_road",
-      "inter_city_road_connection": "local_road",
+      "intra_city_road_connection": "forest_trail",
+      "inter_city_road_connection": "forest_trail",
       "trail_connection": "forest_trail",
       "sewer_connection": "sewer_tunnel",
       "subway_connection": "subway_tunnel",
-      "rail_connection": "local_railroad"
+      "rail_connection": "forest_trail"
     },
     "forest_mapgen_settings": {
       "forest": {
