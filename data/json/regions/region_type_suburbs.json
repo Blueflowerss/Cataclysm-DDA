@@ -1,7 +1,7 @@
 [
   {
     "type": "region_settings",
-    "id": "flatland",
+    "id": "suburbs",
     "default_oter": [
       "open_air",
       "open_air",
@@ -67,8 +67,8 @@
       "river_floodplain_buffer_distance_max": 0
     },
     "overmap_connection_settings": {
-      "intra_city_road_connection": "forest_trail",
-      "inter_city_road_connection": "forest_trail",
+      "intra_city_road_connection": "local_road",
+      "inter_city_road_connection": "local_road",
       "trail_connection": "forest_trail",
       "sewer_connection": "sewer_tunnel",
       "subway_connection": "subway_tunnel",
@@ -148,9 +148,9 @@
       "shop_sigma": 50,
       "park_radius": 20,
       "park_sigma": 80,
-      "houses": { "s_liquor": 100 },
-      "parks": { "s_liquor": 100 },
-      "shops": { "s_liquor": 100 }
+      "houses": { "house_09": 100 },
+      "parks": { "house_09": 100 },
+      "shops": { "house_09": 100 }
     },
     "weather": {
       "base_temperature": 16.5,
