@@ -82,7 +82,36 @@ bool multiworld::travel_to_world( const std::string &prefix )
     get_weather().nextweather = calendar::turn;
     return true;
 }
+std::string multiworld::get_world_region_type( const std::string &world_prefix){
+    const std::string region_type = subworld_manifest[world_prefix].region_type;
+    if (region_settings_map.find(region_type) != region_settings_map.end() ){
+        return region_type;
+    }
+    return "default";
+}
+std::string multiworld::get_current_world_region_type(){
+    const std::string region_type = subworld_manifest[MULTIWORLD.world_prefix].region_type;
+    if (region_settings_map.find(region_type) != region_settings_map.end() ){
+        return region_type;
+    }
+    return "default";
+}
 bool multiworld::load_subworld_manifest() {
+    read_from_file_optional_json(
+        PATH_INFO::world_base_save_path_path() / "subworld_manifest.json",
+    []( const JsonValue & jsin ) {
+        JsonObject jo = jsin.get_object();
+        for (auto it = jo.begin(); it != jo.end(); ++it)
+        {
+            JsonMember memb = *it;
+            JsonObject world_settings = jo.get_object(memb.name());
+            MULTIWORLD.create_or_modify_world(memb.name());
+            subworld_settings &loadedWorld = MULTIWORLD.subworld_manifest[memb.name()];
+            loadedWorld.region_type = world_settings.get_string("region_type");
+            loadedWorld.is_temporary = world_settings.get_bool("is_temporary");
+            loadedWorld.parallel_world = world_settings.get_bool("parallel_world");
+        }
+    });
     return true;
 }
 bool multiworld::save_subworld_manifest() {
@@ -90,7 +119,6 @@ bool multiworld::save_subworld_manifest() {
         return true;
     }
     write_to_file( PATH_INFO::world_base_save_path_path() / "subworld_manifest.json", [&]( std::ostream & fout ) {
-        fout << "# version " << savegame_version << std::endl;
         JsonOut jsout( fout );
         jsout.start_object();
         for (auto it = MULTIWORLD.subworld_manifest.begin(); it != MULTIWORLD.subworld_manifest.end(); ++it)
