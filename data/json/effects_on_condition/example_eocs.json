@@ -555,6 +555,7 @@
     "//": "Prepares worlds.",
     "global": true,
     "effect": [
+      { "create_world": { "world_prefix": "innawoods", "region_type": "innawoods" } },
       { "create_world": { "world_prefix": "flatland", "region_type": "flatland" } },
       { "create_world": { "world_prefix": "suburbs", "region_type": "suburbs" } },
       { "create_world": { "world_prefix": "parallel", "region_type": "flatland", "parallel_world": true } },
