@@ -86,8 +86,9 @@ cata_path overmapbuffer::player_filename( const point_abs_om &p )
     // plus notes and stuff
     std::string world_prefix = MULTIWORLD.get_world_prefix();
     if( !world_prefix.empty() ) {
-        return PATH_INFO::world_base_save_path_path() / "worlds" / world_prefix / base64_encode( get_avatar().get_save_id() ) + string_format( ".seen.%d.%d", p.x(), p.y() );
-    }else{
+        return PATH_INFO::world_base_save_path_path() / "worlds" / world_prefix / base64_encode(
+                   get_avatar().get_save_id() ) + string_format( ".seen.%d.%d", p.x(), p.y() );
+    } else {
         return PATH_INFO::player_base_save_path_path() + string_format( ".seen.%d.%d", p.x(), p.y() );
     }
 }

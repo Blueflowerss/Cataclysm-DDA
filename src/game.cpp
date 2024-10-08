@@ -824,7 +824,7 @@ void game::setup()
     timed_events = timed_event_manager();
 
     SCT.vSCT.clear(); //Delete pending messages
-    
+
     //clear incase loading in different world
     MULTIWORLD.world_prefix = "";
     stats().clear();
@@ -3083,7 +3083,7 @@ bool game::load( const save_t &name )
                 _( "Subworlds" ), [&]()
                 {
                     MULTIWORLD.load_subworld_manifest();
-                }             
+                }
             },
             {
                 _( "Map memory" ), [&]()

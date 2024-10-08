@@ -29,23 +29,22 @@ class multiworld
         /**@param is_temporary - delete world after travelling out of it
          * @param parallel_world - don't clear the overmap buffer when travelling into this world
          * @param region_type - which region blueprint to use when inside the world*/
-        struct subworld_settings
-        {
+        struct subworld_settings {
             bool is_temporary = false;
             bool parallel_world = false;
             std::string region_type = "default";
         };
         multiworld();
         ~multiworld();
-        std::map<std::string,subworld_settings> subworld_manifest; 
+        std::map<std::string, subworld_settings> subworld_manifest;
         bool load();
         bool load_subworld_manifest();
         bool save_subworld_manifest();
         std::string get_world_prefix();
-        bool create_or_modify_world( const std::string &prefix);
+        bool create_or_modify_world( const std::string &prefix );
         //currently just the player
         bool travel_to_world( const std::string &prefix );
-        std::string get_world_region_type( const std::string &world_prefix);
+        std::string get_world_region_type( const std::string &world_prefix );
         std::string get_current_world_region_type();
     private:
         /** @param world_prefix tells the game which world folder it should load data from
