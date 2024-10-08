@@ -6755,10 +6755,14 @@ talk_effect_fun_t::func f_create_world( const JsonObject &jo, const std::string_
     return [world_prefix, region_type, is_temporary, parallel_world]( dialogue const & d ) {
         std::string prefix = world_prefix.evaluate( d );
         std::string type = region_type.evaluate( d );
-        MULTIWORLD.create_or_modify_world( prefix );
-        MULTIWORLD.subworld_manifest[prefix].region_type = type;
-        MULTIWORLD.subworld_manifest[prefix].is_temporary = is_temporary;
-        MULTIWORLD.subworld_manifest[prefix].parallel_world = parallel_world;
+        if( region_settings_map.find( type ) != region_settings_map.end() ) {
+            MULTIWORLD.create_or_modify_world( prefix );
+            MULTIWORLD.subworld_manifest[prefix].region_type = type;
+            MULTIWORLD.subworld_manifest[prefix].is_temporary = is_temporary;
+            MULTIWORLD.subworld_manifest[prefix].parallel_world = parallel_world;
+        }else{
+            add_msg( type + "isn't a valid region" );
+        }
     };
 }
 talk_effect_fun_t::func f_wants_to_talk( bool is_npc )
