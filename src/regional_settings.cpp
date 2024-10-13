@@ -19,9 +19,9 @@
 #include "translations.h"
 
 ter_furn_id::ter_furn_id() : ter( ter_str_id::NULL_ID().id() ),
-    furn( furn_str_id::NULL_ID().id() ) { }
+    furn( furn_str_id::NULL_ID().id() ) {}
 
-template<typename T>
+template <typename T>
 void read_and_set_or_throw( const JsonObject &jo, const std::string &member, T &target,
                             bool required )
 {
@@ -496,6 +496,24 @@ void load_region_settings( const JsonObject &jo )
         jo.throw_error( "No 'id' field." );
     }
     bool strict = new_region.id == "default";
+    if( jo.has_array( "overrides" ) ) {
+        auto overrides = jo.get_array( "overrides" );
+        for( std::string flag : overrides ) {
+            if( flag == "NO_CITY" ) {
+                new_region.no_city = true;
+            } else if( flag == "NO_FOREST" ) {
+                new_region.no_forest = true;
+            } else if( flag == "NO_FOREST_TRAIL" ) {
+                new_region.no_forest_trail = true;
+            } else if( flag == "NO_OCEAN" ) {
+                new_region.no_ocean = true;
+            } else if( flag == "NO_RIVER" ) {
+                new_region.no_river = true;
+            } else if( flag == "NO_SWAMP" ) {
+                new_region.no_swamp = true;
+            }
+        }
+    }
     mandatory( jo, false, "default_oter", new_region.default_oter );
     // So the data definition goes from z = OVERMAP_HEIGHT to z = OVERMAP_DEPTH
     std::reverse( new_region.default_oter.begin(), new_region.default_oter.end() );
@@ -762,7 +780,7 @@ void apply_region_overlay( const JsonObject &jo, regional_settings &region )
     load_region_terrain_and_furniture_settings( jo, region.region_terrain_and_furniture, false, true );
 }
 
-void groundcover_extra::finalize()   // FIXME: return bool for failure
+void groundcover_extra::finalize() // FIXME: return bool for failure
 {
     default_ter = ter_id( default_ter_str );
 
@@ -788,7 +806,7 @@ void groundcover_extra::finalize()   // FIXME: return bool for failure
             continue;
         }
         wtotal += static_cast<int>( it->second * 10000.0 );
-        weightlist[ wtotal ] = tf_id;
+        weightlist[wtotal] = tf_id;
     }
 
     for( std::map<std::string, double>::const_iterator it = boosted_percent_str.begin();
@@ -810,7 +828,7 @@ void groundcover_extra::finalize()   // FIXME: return bool for failure
             continue;
         }
         btotal += static_cast<int>( it->second * 10000.0 );
-        boosted_weightlist[ btotal ] = tf_id;
+        boosted_weightlist[btotal] = tf_id;
     }
 
     if( wtotal > 1000000 ) {
@@ -836,8 +854,8 @@ void groundcover_extra::finalize()   // FIXME: return bool for failure
 
     tf_id.furn = furn_str_id::NULL_ID();
     tf_id.ter = default_ter;
-    weightlist[ 1000000 ] = tf_id;
-    boosted_weightlist[ 1000000 ] = tf_id;
+    weightlist[1000000] = tf_id;
+    boosted_weightlist[1000000] = tf_id;
 
     percent_str.clear();
     boosted_percent_str.clear();
@@ -1076,7 +1094,7 @@ void building_bin::add( const overmap_special_id &building, int weight )
         return;
     }
 
-    unfinalized_buildings[ building ] = weight;
+    unfinalized_buildings[building] = weight;
 }
 
 overmap_special_id building_bin::pick() const

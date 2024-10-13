@@ -6760,7 +6760,7 @@ talk_effect_fun_t::func f_create_world( const JsonObject &jo, const std::string_
             MULTIWORLD.subworld_manifest[prefix].region_type = type;
             MULTIWORLD.subworld_manifest[prefix].is_temporary = is_temporary;
             MULTIWORLD.subworld_manifest[prefix].parallel_world = parallel_world;
-        }else{
+        } else {
             add_msg( type + "isn't a valid region" );
         }
     };

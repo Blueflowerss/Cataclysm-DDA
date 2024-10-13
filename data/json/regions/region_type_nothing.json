@@ -1,9 +1,9 @@
 [
   {
     "type": "region_settings",
-    "id": "innawoods",
+    "id": "void",
     "default_oter": [
-      "open_air",
+      "nether_glass",
       "open_air",
       "open_air",
       "open_air",
@@ -14,18 +14,18 @@
       "open_air",
       "open_air",
       "field",
-      "solid_earth",
-      "empty_rock",
-      "empty_rock",
-      "deep_rock",
-      "deep_rock",
-      "deep_rock",
-      "deep_rock",
-      "deep_rock",
-      "deep_rock",
-      "deep_rock"
+      "open_air",
+      "open_air",
+      "open_air",
+      "open_air",
+      "open_air",
+      "open_air",
+      "open_air",
+      "open_air",
+      "open_air",
+      "open_air"
     ],
-    "overrides": [ "NO_CITY", "NO_FOREST_TRAIL" ],
+    "overrides": [ "NO_CITY", "NO_FOREST_TRAIL", "NO_FOREST","NO_SWAMP","NO_OCEAN","NO_RIVER" ],
     "default_groundcover": [ [ "t_region_groundcover", 1 ] ],
     "//": "Weights are set high in order to allow mods to add rare terrains.  Dividing current weights by 1000 breaks in repo mods and should not be approved.",
     "region_terrain_and_furniture": {
@@ -549,12 +549,12 @@
       "lake_shore": { "chance": 2, "extras": { "mx_reed": 100 } }
     },
     "weather": {
-      "base_temperature": 6.5,
-      "base_humidity": 70.0,
-      "base_pressure": 1015.0,
-      "base_wind": 3.4,
-      "base_wind_distrib_peaks": 80,
-      "base_wind_season_variation": 50
+      "base_temperature": -200.0,
+      "base_humidity": 0.0,
+      "base_pressure": 0.0,
+      "base_wind": 0.0,
+      "base_wind_distrib_peaks": 0,
+      "base_wind_season_variation": 0
     },
     "overmap_feature_flag_settings": {
       "clear_blacklist": false,

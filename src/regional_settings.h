@@ -277,7 +277,12 @@ struct regional_settings {
     double river_scale = 1;
     weighted_int_list<ter_id> default_groundcover; // i.e., 'grass_or_dirt'
     shared_ptr_fast<weighted_int_list<ter_str_id>> default_groundcover_str;
-
+    bool no_city = false;
+    bool no_river = false;
+    bool no_forest = false;
+    bool no_forest_trail = false;
+    bool no_ocean = false;
+    bool no_swamp = false;
     city_settings     city_spec;      // put what where in a city of what kind
     forest_mapgen_settings forest_composition;
     forest_trail_settings forest_trail;

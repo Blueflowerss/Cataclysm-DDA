@@ -560,6 +560,7 @@
       { "create_world": { "world_prefix": "suburbs", "region_type": "suburbs" } },
       { "create_world": { "world_prefix": "parallel", "region_type": "flatland", "parallel_world": true } },
       { "create_world": { "world_prefix": "temporary", "region_type": "flatland", "is_temporary": true } },
+      { "create_world": { "world_prefix": "void", "region_type": "void"} },
       { "create_world": { "world_prefix": "alternate", "region_type": "flatland" } }
     ]
   }

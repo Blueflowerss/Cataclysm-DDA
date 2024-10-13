@@ -3635,39 +3635,39 @@ void overmap::generate( const overmap *north, const overmap *east,
     if( get_option<bool>( "OVERMAP_POPULATE_OUTSIDE_CONNECTIONS_FROM_NEIGHBORS" ) ) {
         populate_connections_out_from_neighbors( north, east, south, west );
     }
-    if( get_option<bool>( "OVERMAP_PLACE_RIVERS" ) ) {
+    if( get_option<bool>( "OVERMAP_PLACE_RIVERS" ) && !settings->no_river ) {
         place_rivers( north, east, south, west );
     }
     if( get_option<bool>( "OVERMAP_PLACE_LAKES" ) ) {
         place_lakes();
     }
-    if( get_option<bool>( "OVERMAP_PLACE_OCEANS" ) ) {
+    if( get_option<bool>( "OVERMAP_PLACE_OCEANS" ) && !settings->no_ocean ) {
         place_oceans();
     }
-    if( get_option<bool>( "OVERMAP_PLACE_FORESTS" ) ) {
+    if( get_option<bool>( "OVERMAP_PLACE_FORESTS" ) && !settings->no_forest ) {
         place_forests();
     }
-    if( get_option<bool>( "OVERMAP_PLACE_SWAMPS" ) ) {
+    if( get_option<bool>( "OVERMAP_PLACE_SWAMPS" ) && !settings->no_swamp ) {
         place_swamps();
     }
     if( get_option<bool>( "OVERMAP_PLACE_RAVINES" ) ) {
         place_ravines();
     }
-    if( get_option<bool>( "OVERMAP_PLACE_CITIES" ) ) {
+    if( get_option<bool>( "OVERMAP_PLACE_CITIES" ) && !settings->no_city ) {
         place_cities();
     }
-    if( get_option<bool>( "OVERMAP_PLACE_FOREST_TRAILS" ) ) {
+    if( get_option<bool>( "OVERMAP_PLACE_FOREST_TRAILS" ) && !settings->no_forest_trail ) {
         place_forest_trails();
     }
     if( get_option<bool>( "OVERMAP_PLACE_RAILROADS_BEFORE_ROADS" ) ) {
         if( get_option<bool>( "OVERMAP_PLACE_RAILROADS" ) ) {
             place_railroads( north, east, south, west );
         }
-        if( get_option<bool>( "OVERMAP_PLACE_ROADS" ) ) {
+        if( get_option<bool>( "OVERMAP_PLACE_ROADS" ) && !settings->no_city ) {
             place_roads( north, east, south, west );
         }
     } else {
-        if( get_option<bool>( "OVERMAP_PLACE_ROADS" ) ) {
+        if( get_option<bool>( "OVERMAP_PLACE_ROADS" ) && !settings->no_city ) {
             place_roads( north, east, south, west );
         }
         if( get_option<bool>( "OVERMAP_PLACE_RAILROADS" ) ) {
@@ -3677,7 +3677,7 @@ void overmap::generate( const overmap *north, const overmap *east,
     if( get_option<bool>( "OVERMAP_PLACE_SPECIALS" ) ) {
         place_specials( enabled_specials );
     }
-    if( get_option<bool>( "OVERMAP_PLACE_FOREST_TRAILHEADS" ) ) {
+    if( get_option<bool>( "OVERMAP_PLACE_FOREST_TRAILHEADS" ) && !settings->no_forest_trail ) {
         place_forest_trailheads();
     }
 
