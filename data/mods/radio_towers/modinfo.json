@@ -1,0 +1,12 @@
+[
+  {
+    "type": "MOD_INFO",
+    "id": "radio_world",
+    "name": "Radio Towers",
+    "authors": [ "Blueflowers" ],
+    "maintainers": [ "Blueflowers" ],
+    "description": "Adds liminal worlds.",
+    "category": "content",
+    "dependencies": [ "dda" ]
+  }
+]

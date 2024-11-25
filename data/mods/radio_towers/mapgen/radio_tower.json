@@ -1,0 +1,88 @@
+[
+  {
+    "type": "overmap_terrain",
+    "id": [ "radio_tower_top_liminal" ],
+    "vision_levels": "isolated_tower",
+    "name": "radio tower",
+    "sym": ".",
+    "color": "light_gray",
+    "see_cost": "all_clear"
+  },
+  {
+    "type": "terrain",
+    "id": "t_radio_tower_liminal_light",
+    "name": "radio tower",
+    "description": "The structure of a radio transmission tower, there's a bright spotlight hanging off it.",
+    "light_emitted": 50,
+    "symbol": "&",
+    "color": "light_gray",
+    "move_cost": 0,
+    "flags": [ "TRANSPARENT", "NOITEM", "PERMEABLE", "MINEABLE" ],
+    "bash": {
+      "str_min": 60,
+      "str_max": 210,
+      "sound": "metal screeching!",
+      "sound_fail": "clang!",
+      "ter_set": "t_concrete",
+      "items": [
+        { "item": "steel_lump", "count": [ 1, 2 ] },
+        { "item": "steel_chunk", "count": [ 1, 4 ] },
+        { "item": "scrap", "count": [ 3, 12 ] }
+      ]
+    }
+  },
+  {
+    "type": "mapgen",
+    "method": "json",
+    "om_terrain": "radio_tower_top_liminal",
+    "object": {
+      "fill_ter": "t_metal_floor_no_roof",
+      "rows": [
+        "            gg          ",
+        "            gg          ",
+        "            gg          ",
+        "          aaggaa        ",
+        "          a,,,,a        ",
+        "ggggggggggg,RR,ggggggggg",
+        "ggggggggggg,RR,ggggggggg",
+        "          av,,,a        ",
+        "          aaggaa        ",
+        "            gg          ",
+        "            gg          ",
+        "            gg          ",
+        "            gg          ",
+        "            gg          ",
+        "            gg          ",
+        "            gg          ",
+        "            gg          ",
+        "            gg          ",
+        "            gg          ",
+        "            gg          ",
+        "            gg          ",
+        "            gg          ",
+        "            gg          ",
+        "            gg          "
+      ],
+      "palettes": [ "roof_palette" ],
+      "terrain": {
+        "R": [ [ "t_radio_tower", 90 ], [ "t_radio_tower_liminal_light", 10 ] ],
+        "a": "t_railing",
+        ",": "t_metal_floor_no_roof",
+        "g": "t_floor_metal_gangway"
+      },
+      "place_nested": [
+        {
+          "chunks": [
+            [ "null", 40 ],
+            [ "radio_tower_2x2_map", 40 ],
+            [ "radio_tower_2x2_holdout", 10 ],
+            [ "radio_tower_2x2_sniper", 2 ],
+            [ "radio_tower_wasp", 5 ]
+          ],
+          "x": 10,
+          "y": 5
+        }
+      ]
+    }
+  }
+]

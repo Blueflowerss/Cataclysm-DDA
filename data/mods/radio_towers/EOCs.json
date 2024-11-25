@@ -1,0 +1,54 @@
+[
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_radiosphere_create_world",
+    "//": "Prepares radiosphere world.",
+    "eoc_type": "SCENARIO_SPECIFIC",
+    "effect": [ { "create_world": { "world_prefix": "radiosphere", "region_type": "radiosphere" } } ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_radiosphere_darkness_deactivate",
+    "//": "envelops the world in darkness.",
+    "recurrence": "30 seconds",
+    "condition": { "not": { "u_in_world": "radiosphere" } },
+    "deactivate_condition": { "not": { "u_in_world": "radiosphere" } },
+    "effect": [ { "alter_timed_events": "radiosphere_lights_off" } ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_radiosphere_teleport",
+    "//": "shifts the character to radiosphere world or back",
+    "effect": [
+      { "u_location_variable": { "u_val": "tele_test" }, "x_adjust": 0, "y_adjust": 0 },
+      {
+        "if": { "u_in_world": "" },
+        "then": [
+          {
+            "u_teleport": { "u_val": "tele_test" },
+            "world_prefix": "radiosphere",
+            "fail_message": "your body doesn't move",
+            "success_message": "you feel a electrostatic buzz in the air."
+          },
+          "next_weather",
+          { "custom_light_level": 0, "length": "9999 days", "key": "radiosphere_lights_off" },
+          { "run_eocs": [ "EOC_radiosphere_darkness_deactivate" ] }
+        ],
+        "else": [
+          {
+            "if": { "u_in_world": "radiosphere" },
+            "then": [
+              {
+                "u_teleport": { "u_val": "tele_test" },
+                "world_prefix": "default",
+                "fail_message": "your body doesn't move",
+                "success_message": "vague normality surrounds you, you're back home."
+              },
+              { "alter_timed_events": "radiosphere_lights_off" }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
