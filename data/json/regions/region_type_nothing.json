@@ -25,7 +25,7 @@
       "open_air",
       "open_air"
     ],
-    "overrides": [ "NO_CITY", "NO_FOREST_TRAIL", "NO_FOREST","NO_SWAMP","NO_OCEAN","NO_RIVER" ],
+    "overrides": [ "NO_CITY", "NO_FOREST_TRAIL", "NO_FOREST", "NO_SWAMP", "NO_OCEAN", "NO_RIVER" ],
     "default_groundcover": [ [ "t_region_groundcover", 1 ] ],
     "//": "Weights are set high in order to allow mods to add rare terrains.  Dividing current weights by 1000 breaks in repo mods and should not be approved.",
     "region_terrain_and_furniture": {
