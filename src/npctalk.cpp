@@ -6709,26 +6709,13 @@ talk_effect_fun_t::func f_teleport( const JsonObject &jo, std::string_view membe
     } else {
         success_message.str_val = translation();
     }
-    str_or_var world_prefix;
-    if( jo.has_member( "world_prefix" ) ) {
-        world_prefix = get_str_or_var( jo.get_member( "world_prefix" ), "world_prefix", false, "" );
-    } else {
-        world_prefix.str_val = "";
-    }
     bool force = jo.get_bool( "force", false );
-    return [is_npc, target_var, fail_message, success_message, force,
-            world_prefix]( dialogue const & d ) {
+    return [is_npc, target_var, fail_message, success_message, force]( dialogue const & d ) {
         tripoint_abs_ms target_pos = get_tripoint_from_var( target_var, d, is_npc );
         Creature *teleporter = d.actor( is_npc )->get_creature();
         if( teleporter ) {
-            std::string prefix = world_prefix.evaluate( d );
-            bool successful_world_swap = false;
-            //make sure we don't cause a world swap on every short/long range teleport outside the default world
-            if( !prefix.empty() && prefix != MULTIWORLD.get_world_prefix() ) {
-                successful_world_swap = MULTIWORLD.travel_to_world( prefix );
-            }
             if( teleport::teleport_to_point( *teleporter, get_map().bub_from_abs( target_pos ), true, false,
-                                             false, force ) || successful_world_swap ) {
+                                             false, force ) ) {
                 teleporter->add_msg_if_player( success_message.evaluate( d ) );
             } else {
                 teleporter->add_msg_if_player( fail_message.evaluate( d ) );
@@ -6765,6 +6752,19 @@ talk_effect_fun_t::func f_create_world( const JsonObject &jo, const std::string_
         }
     };
 }
+
+talk_effect_fun_t::func f_go_to_world( const JsonObject &jo, const std::string_view member,
+                                       const std::string_view )
+{
+    str_or_var world_prefix = get_str_or_var( jo.get_member( member ), member, false, "default" );
+    return [world_prefix]( dialogue const & d ) {
+        std::string prefix = world_prefix.evaluate( d );
+        if( !prefix.empty() && prefix != MULTIWORLD.get_world_prefix() ) {
+            MULTIWORLD.travel_to_world( prefix );
+        }
+    };
+}
+
 talk_effect_fun_t::func f_wants_to_talk( bool is_npc )
 {
     return [is_npc]( dialogue const & d ) {
@@ -6944,6 +6944,7 @@ parsers = {
     { "u_set_field", "npc_set_field", jarg::member, &talk_effect_fun::f_field },
     { "u_emit", "npc_emit", jarg::member, &talk_effect_fun::f_emit },
     { "u_teleport", "npc_teleport", jarg::object, &talk_effect_fun::f_teleport },
+    { "u_go_to_world", jarg::member, &talk_effect_fun::f_go_to_world },
     { "u_set_flag", "npc_set_flag", jarg::member, &talk_effect_fun::f_set_flag },
     { "u_unset_flag", "npc_unset_flag", jarg::member, &talk_effect_fun::f_unset_flag },
     { "u_activate", "npc_activate", jarg::member, &talk_effect_fun::f_activate },
