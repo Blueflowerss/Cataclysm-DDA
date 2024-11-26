@@ -63,19 +63,20 @@
           {
             "u_location_variable": { "context_val": "nearest_floor" },
             "terrain": "t_metal_floor_no_roof",
-            "target_max_radius": 60
+            "target_max_radius": 60,
+            "min_radius": 0,
+            "max_radius": 0
           },
           {
             "if": { "math":["has_var(_nearest_floor)"] },
             "then": {
-              "u_teleport": { "context_val": "nearest_floor" },
-              "fail_message": "",
-              "success_message": "you feel a electrostatic buzz in the air."
+              "u_teleport": { "context_val": "nearest_floor" }
             }
           },
           "next_weather",
           { "custom_light_level": 0, "length": "9999 days", "key": "radiosphere_lights_off" },
-          { "run_eocs": [ "EOC_radiosphere_darkness_deactivate" ] }
+          { "run_eocs": [ "EOC_radiosphere_darkness_deactivate" ]},
+          { "u_message": "you feel a electrostatic buzz in the air.", "interrupt_type":"eoc", "popup": true, "popup_w_interrupt_query": true}
         ],
         "else": [
           {
@@ -88,12 +89,14 @@
                   "om_terrain": "radio_tower",
                   "om_terrain_match_type": "CONTAINS",
                   "search_range": 1200,
-                  "min_distance": 0
+                  "z": 0
                 },
                 "terrain": "t_metal_floor_no_roof",
                 "z_override":true,
-                "z_adjust":6,
-                "target_max_radius": 60
+                "z_adjust":{"math":[ "clamp(u_val('pos_z'),1,6)" ]},
+                "target_max_radius": 30,
+                "min_radius": 0,
+                "max_radius": 0
               },
               {
                 "u_location_variable": { "context_val": "ground" },
@@ -102,10 +105,11 @@
               },
               {
                 "if": { "math":["has_var(_nearest_radio_tower_floor)"] },
-                "then": { "u_teleport": { "context_val": "nearest_radio_tower_floor" }, "fail_message": "", "success_message": "vague normality surrounds you, you're back home." },
+                "then": { "u_teleport": { "context_val": "nearest_radio_tower_floor"}, "fail_message": "", "success_message": "" },
                 "else": {
-                "u_teleport": { "context_val": "ground" }, "fail_message": "", "success_message": "vague normality surrounds you, you're back home." }
+                "u_teleport": { "context_val": "ground"}, "fail_message": "", "success_message": "" }
               },
+              { "u_message": "vague normality surrounds you, you're back home.", "interrupt_type":"eoc", "popup": true, "popup_w_interrupt_query": true},
               { "alter_timed_events": "radiosphere_lights_off" }
             ]
           }
