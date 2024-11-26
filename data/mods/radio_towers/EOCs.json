@@ -29,7 +29,6 @@
     "//": "Entering/Exiting the radiosphere.",
     "eoc_type": "EVENT",
     "required_event": "avatar_enters_omt",
-    "global": true,
     "condition": {
       "or": [
         { "u_at_om_location": "radio_tower_top" },
@@ -37,7 +36,10 @@
         { "u_at_om_location": "wasp_tower_top" }
       ]
     },
-    "effect": [ { "math": [ "u_radiosphere_time_until_teleport", "=", "360" ] }, { "run_eocs": "EOC_radiosphere_countdown" } ],
+    "effect": [ { "math": [ "u_radiosphere_time_until_teleport", "=", "360" ] },
+    {"u_add_trait":"mut_radiosphere_inhabitance"},
+    { "u_lose_trait": "mut_radiosphere_inhabitance" },
+    { "run_eocs": "EOC_radiosphere_countdown" } ],
     "false_effect": [ { "math": [ "u_radiosphere_time_until_teleport", "=", "-999" ] } ]
   },
   {
@@ -65,7 +67,7 @@
             "target_max_radius": 60
           },
           {
-            "if": { "not":{ "map_terrain_with_flag": "NO_FLOOR", "loc": { "context_val": "nearest_floor" } } },
+            "if": { "math":["has_var(_nearest_floor)"] },
             "then": {
               "u_teleport": { "context_val": "nearest_floor" },
               "fail_message": "",
@@ -92,7 +94,7 @@
                 "z_adjust": 0
               },
               {
-                "if": { "not":{ "map_terrain_with_flag": "NO_FLOOR", "loc": { "context_val": "nearest_floor" } } },
+                "if": { "math":["has_var(_nearest_floor)"] },
                 "then": { "u_teleport": { "context_val": "nearest_floor" }, "fail_message": "", "success_message": "vague normality surrounds you, you're back home." },
                 "else": {
                 "u_teleport": { "context_val": "ground" }, "fail_message": "", "success_message": "vague normality surrounds you, you're back home." }

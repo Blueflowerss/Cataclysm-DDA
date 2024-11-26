@@ -1,0 +1,12 @@
+[
+  {
+    "type": "mutation",
+    "id": "mut_radiosphere_inhabitance",
+    "name": { "str": "Radiosphere" },
+    "points": 0,
+    "description": "used for resetting EOCs.",
+    "valid": false,
+    "player_display": false,
+    "purifiable": false
+  }
+]
