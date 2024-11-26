@@ -43,8 +43,8 @@
   },
   {
     "type": "effect_on_condition",
-    "id": "EOC_radiosphere_darkness_deactivate",
-    "//": "envelops the world in darkness.",
+    "id": "EOC_radiosphere_light_deactivate",
+    "//": "envelops the world in sun :).",
     "global": true,
     "recurrence": "30 seconds",
     "condition": { "not": { "u_in_world": "radiosphere" } },
@@ -62,7 +62,7 @@
           { "u_go_to_world": "radiosphere" },
           {
             "u_location_variable": { "context_val": "nearest_floor" },
-            "terrain": "t_metal_floor_no_roof",
+            "terrain": "t_ladder_down",
             "target_max_radius": 60,
             "min_radius": 0,
             "max_radius": 0
@@ -74,8 +74,8 @@
             }
           },
           "next_weather",
-          { "custom_light_level": 0, "length": "9999 days", "key": "radiosphere_lights_off" },
-          { "run_eocs": [ "EOC_radiosphere_darkness_deactivate" ]},
+          { "custom_light_level": 255, "length": "9999 days", "key": "radiosphere_lights_off" },
+          { "run_eocs": [ "EOC_radiosphere_light_deactivate" ]},
           { "u_message": "you feel a electrostatic buzz in the air.", "interrupt_type":"eoc", "popup": true, "popup_w_interrupt_query": true}
         ],
         "else": [
@@ -86,15 +86,13 @@
               {
                 "u_location_variable": { "context_val": "nearest_radio_tower_floor" },
                 "target_params": {
-                  "om_terrain": "radio_tower",
-                  "om_terrain_match_type": "CONTAINS",
+                  "om_terrain": "radio_tower_top",
+                  "om_terrain_match_type": "TYPE",
                   "search_range": 1200,
-                  "z": 0
+                  "z": 6
                 },
-                "terrain": "t_metal_floor_no_roof",
-                "z_override":true,
-                "z_adjust":{"math":[ "clamp(u_val('pos_z'),1,6)" ]},
-                "target_max_radius": 30,
+                "terrain": "t_ladder_down",
+                "target_max_radius": 60,
                 "min_radius": 0,
                 "max_radius": 0
               },
