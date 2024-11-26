@@ -3,13 +3,48 @@
     "type": "effect_on_condition",
     "id": "EOC_radiosphere_create_world",
     "//": "Prepares radiosphere world.",
-    "eoc_type": "SCENARIO_SPECIFIC",
+    "eoc_type": "EVENT",
+    "required_event": "game_avatar_new",
     "effect": [ { "create_world": { "world_prefix": "radiosphere", "region_type": "radiosphere" } } ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_radiosphere_countdown",
+    "//": "countdown.",
+    "recurrence": "10 seconds",
+    "condition": { "math": [ "u_radiosphere_time_until_teleport", ">=", "0" ] },
+    "deactivate_condition": { "math": [ "u_radiosphere_time_until_teleport", "<=", "-999" ] },
+    "effect": [
+      {
+        "if": { "math": [ "u_radiosphere_time_until_teleport", "<=", "0" ] },
+        "then": [ { "math": [ "u_radiosphere_time_until_teleport", "=", "-999" ] }, { "run_eocs": [ "EOC_radiosphere_teleport" ] } ]
+      },
+      { "math": [ "u_radiosphere_time_until_teleport", "-=", "1" ] },
+      { "u_message": { "u_val": "radiosphere_time_until_teleport" } }
+    ]
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_radiosphere_enter_exit",
+    "//": "Entering/Exiting the radiosphere.",
+    "eoc_type": "EVENT",
+    "required_event": "avatar_enters_omt",
+    "global": true,
+    "condition": {
+      "or": [
+        { "u_at_om_location": "radio_tower_top" },
+        { "u_at_om_location": "radio_tower_top_liminal" },
+        { "u_at_om_location": "wasp_tower_top" }
+      ]
+    },
+    "effect": [ { "math": [ "u_radiosphere_time_until_teleport", "=", "360" ] }, { "run_eocs": "EOC_radiosphere_countdown" } ],
+    "false_effect": [ { "math": [ "u_radiosphere_time_until_teleport", "=", "-999" ] } ]
   },
   {
     "type": "effect_on_condition",
     "id": "EOC_radiosphere_darkness_deactivate",
     "//": "envelops the world in darkness.",
+    "global": true,
     "recurrence": "30 seconds",
     "condition": { "not": { "u_in_world": "radiosphere" } },
     "deactivate_condition": { "not": { "u_in_world": "radiosphere" } },
@@ -20,15 +55,22 @@
     "id": "EOC_radiosphere_teleport",
     "//": "shifts the character to radiosphere world or back",
     "effect": [
-      { "u_location_variable": { "u_val": "tele_test" }, "x_adjust": 0, "y_adjust": 0 },
       {
         "if": { "u_in_world": "" },
         "then": [
+          { "u_go_to_world": "radiosphere" },
           {
-            "u_teleport": { "u_val": "tele_test" },
-            "world_prefix": "radiosphere",
-            "fail_message": "your body doesn't move",
-            "success_message": "you feel a electrostatic buzz in the air."
+            "u_location_variable": { "context_val": "nearest_floor" },
+            "terrain": "t_metal_floor_no_roof",
+            "target_max_radius": 60
+          },
+          {
+            "if": { "not":{ "map_terrain_with_flag": "NO_FLOOR", "loc": { "context_val": "nearest_floor" } } },
+            "then": {
+              "u_teleport": { "context_val": "nearest_floor" },
+              "fail_message": "",
+              "success_message": "you feel a electrostatic buzz in the air."
+            }
           },
           "next_weather",
           { "custom_light_level": 0, "length": "9999 days", "key": "radiosphere_lights_off" },
@@ -38,11 +80,22 @@
           {
             "if": { "u_in_world": "radiosphere" },
             "then": [
+              {"u_go_to_world":"default"},
               {
-                "u_teleport": { "u_val": "tele_test" },
-                "world_prefix": "default",
-                "fail_message": "your body doesn't move",
-                "success_message": "vague normality surrounds you, you're back home."
+                "u_location_variable": { "context_val": "nearest_floor" },
+                "terrain": "t_metal_floor_no_roof",
+                "target_max_radius": 60
+              },
+              {
+                "u_location_variable": { "context_val": "ground" },
+                "z_override": true,
+                "z_adjust": 0
+              },
+              {
+                "if": { "not":{ "map_terrain_with_flag": "NO_FLOOR", "loc": { "context_val": "nearest_floor" } } },
+                "then": { "u_teleport": { "context_val": "nearest_floor" }, "fail_message": "", "success_message": "vague normality surrounds you, you're back home." },
+                "else": {
+                "u_teleport": { "context_val": "ground" }, "fail_message": "", "success_message": "vague normality surrounds you, you're back home." }
               },
               { "alter_timed_events": "radiosphere_lights_off" }
             ]
