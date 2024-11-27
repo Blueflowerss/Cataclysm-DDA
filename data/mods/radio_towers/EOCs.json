@@ -5,87 +5,28 @@
     "//": "Prepares radiosphere world.",
     "eoc_type": "EVENT",
     "required_event": "game_avatar_new",
-    "effect": [
-      {
-        "create_world": {
-          "world_prefix": "radiosphere",
-          "region_type": "radiosphere"
-        }
-      }
-    ]
+    "effect": [ { "create_world": { "world_prefix": "radiosphere", "region_type": "radiosphere" } } ]
   },
   {
     "type": "effect_on_condition",
     "id": "EOC_radiosphere_countdown",
     "//": "countdown.",
     "recurrence": "10 seconds",
-    "condition": {
-      "math": [
-        "u_radiosphere_time_until_teleport",
-        ">=",
-        "0"
-      ]
-    },
-    "deactivate_condition": {
-      "math": [
-        "u_radiosphere_time_until_teleport",
-        "<=",
-        "-999"
-      ]
-    },
+    "condition": { "math": [ "u_radiosphere_time_until_teleport", ">=", "0" ] },
+    "deactivate_condition": { "math": [ "u_radiosphere_time_until_teleport", "<=", "-999" ] },
     "effect": [
+      { "u_location_variable": { "context_val": "ladder_check" } },
       {
-        "u_location_variable": {
-          "context_val": "ladder_check"
-        }
-      },
-      {
-        "if": {
-          "math": [
-            "u_radiosphere_time_until_teleport",
-            "<=",
-            "0"
-          ]
-        },
+        "if": { "math": [ "u_radiosphere_time_until_teleport", "<=", "0" ] },
         "then": [
           {
-            "if": {
-              "map_terrain_id": "t_ladder_down",
-              "loc": {
-                "context_val": "ladder_check"
-              }
-            },
-            "then": [
-              {
-                "run_eocs": [
-                  "EOC_radiosphere_teleport"
-                ]
-              },
-              {
-                "math": [
-                  "u_radiosphere_time_until_teleport",
-                  "=",
-                  "-999"
-                ]
-              }
-            ]
+            "if": { "map_terrain_id": "t_ladder_down", "loc": { "context_val": "ladder_check" } },
+            "then": [ { "run_eocs": [ "EOC_radiosphere_teleport" ] }, { "math": [ "u_radiosphere_time_until_teleport", "=", "-999" ] } ]
           },
-          {
-            "math": [
-              "u_radiosphere_time_until_teleport",
-              "=",
-              "max(rand(130),20)"
-            ]
-          }
+          { "math": [ "u_radiosphere_time_until_teleport", "=", "max(rand(130),20)" ] }
         ]
       },
-      {
-        "math": [
-          "u_radiosphere_time_until_teleport",
-          "-=",
-          "1"
-        ]
-      }
+      { "math": [ "u_radiosphere_time_until_teleport", "-=", "1" ] }
     ]
   },
   {
@@ -96,44 +37,18 @@
     "required_event": "avatar_enters_omt",
     "condition": {
       "or": [
-        {
-          "u_at_om_location": "radio_tower_top"
-        },
-        {
-          "u_at_om_location": "radio_tower_top_liminal"
-        },
-        {
-          "u_at_om_location": "wasp_tower_top"
-        }
+        { "u_at_om_location": "radio_tower_top" },
+        { "u_at_om_location": "radio_tower_top_liminal" },
+        { "u_at_om_location": "wasp_tower_top" }
       ]
     },
     "effect": [
-      {
-        "math": [
-          "u_radiosphere_time_until_teleport",
-          "=",
-          "max(rand(130),20)"
-        ]
-      },
-      {
-        "u_add_trait": "mut_radiosphere_inhabitance"
-      },
-      {
-        "u_lose_trait": "mut_radiosphere_inhabitance"
-      },
-      {
-        "run_eocs": "EOC_radiosphere_countdown"
-      }
+      { "math": [ "u_radiosphere_time_until_teleport", "=", "max(rand(130),20)" ] },
+      { "u_add_trait": "mut_radiosphere_inhabitance" },
+      { "u_lose_trait": "mut_radiosphere_inhabitance" },
+      { "run_eocs": "EOC_radiosphere_countdown" }
     ],
-    "false_effect": [
-      {
-        "math": [
-          "u_radiosphere_time_until_teleport",
-          "=",
-          "-999"
-        ]
-      }
-    ]
+    "false_effect": [ { "math": [ "u_radiosphere_time_until_teleport", "=", "-999" ] } ]
   },
   {
     "type": "effect_on_condition",
@@ -141,21 +56,9 @@
     "//": "envelops the world in sun :).",
     "global": true,
     "recurrence": "30 seconds",
-    "condition": {
-      "not": {
-        "u_in_world": "radiosphere"
-      }
-    },
-    "deactivate_condition": {
-      "not": {
-        "u_in_world": "radiosphere"
-      }
-    },
-    "effect": [
-      {
-        "alter_timed_events": "radiosphere_lights_off"
-      }
-    ]
+    "condition": { "not": { "u_in_world": "radiosphere" } },
+    "deactivate_condition": { "not": { "u_in_world": "radiosphere" } },
+    "effect": [ { "alter_timed_events": "radiosphere_lights_off" } ]
   },
   {
     "type": "effect_on_condition",
@@ -163,45 +66,23 @@
     "//": "shifts the character to radiosphere world or back",
     "effect": [
       {
-        "if": {
-          "u_in_world": ""
-        },
+        "if": { "u_in_world": "" },
         "then": [
+          { "u_go_to_world": "radiosphere" },
           {
-            "u_go_to_world": "radiosphere"
-          },
-          {
-            "u_location_variable": {
-              "context_val": "nearest_floor"
-            },
+            "u_location_variable": { "context_val": "nearest_floor" },
             "terrain": "t_ladder_down",
             "target_max_radius": 60,
             "min_radius": 0,
             "max_radius": 0
           },
           {
-            "if": {
-              "math": [
-                "has_var(_nearest_floor)"
-              ]
-            },
-            "then": {
-              "u_teleport": {
-                "context_val": "nearest_floor"
-              }
-            }
+            "if": { "math": [ "has_var(_nearest_floor)" ] },
+            "then": { "u_teleport": { "context_val": "nearest_floor" } }
           },
           "next_weather",
-          {
-            "custom_light_level": 255,
-            "length": "9999 days",
-            "key": "radiosphere_lights_off"
-          },
-          {
-            "run_eocs": [
-              "EOC_radiosphere_light_deactivate"
-            ]
-          },
+          { "custom_light_level": 255, "length": "9999 days", "key": "radiosphere_lights_off" },
+          { "run_eocs": [ "EOC_radiosphere_light_deactivate" ] },
           {
             "u_message": "you feel a electrostatic buzz in the air.",
             "interrupt_type": "eoc",
@@ -211,55 +92,22 @@
         ],
         "else": [
           {
-            "if": {
-              "u_in_world": "radiosphere"
-            },
+            "if": { "u_in_world": "radiosphere" },
             "then": [
+              { "u_go_to_world": "default" },
               {
-                "u_go_to_world": "default"
-              },
-              {
-                "u_location_variable": {
-                  "context_val": "nearest_radio_tower_floor"
-                },
-                "target_params": {
-                  "om_terrain": "radio_tower_top",
-                  "om_terrain_match_type": "TYPE",
-                  "search_range": 1200,
-                  "z": 6
-                },
+                "u_location_variable": { "context_val": "nearest_radio_tower_floor" },
+                "target_params": { "om_terrain": "radio_tower_top", "om_terrain_match_type": "TYPE", "search_range": 1200, "z": 6 },
                 "terrain": "t_ladder_down",
                 "target_max_radius": 60,
                 "min_radius": 0,
                 "max_radius": 0
               },
+              { "u_location_variable": { "context_val": "ground" }, "z_override": true, "z_adjust": 0 },
               {
-                "u_location_variable": {
-                  "context_val": "ground"
-                },
-                "z_override": true,
-                "z_adjust": 0
-              },
-              {
-                "if": {
-                  "math": [
-                    "has_var(_nearest_radio_tower_floor)"
-                  ]
-                },
-                "then": {
-                  "u_teleport": {
-                    "context_val": "nearest_radio_tower_floor"
-                  },
-                  "fail_message": "",
-                  "success_message": ""
-                },
-                "else": {
-                  "u_teleport": {
-                    "context_val": "ground"
-                  },
-                  "fail_message": "",
-                  "success_message": ""
-                }
+                "if": { "math": [ "has_var(_nearest_radio_tower_floor)" ] },
+                "then": { "u_teleport": { "context_val": "nearest_radio_tower_floor" }, "fail_message": "", "success_message": "" },
+                "else": { "u_teleport": { "context_val": "ground" }, "fail_message": "", "success_message": "" }
               },
               {
                 "u_message": "vague normality surrounds you, you're back home.",
@@ -267,9 +115,7 @@
                 "popup": true,
                 "popup_w_interrupt_query": true
               },
-              {
-                "alter_timed_events": "radiosphere_lights_off"
-              }
+              { "alter_timed_events": "radiosphere_lights_off" }
             ]
           }
         ]
