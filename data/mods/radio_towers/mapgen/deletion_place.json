@@ -1,0 +1,61 @@
+[
+{
+  "type": "terrain",
+  "id": "t_glowing_floor_liminal",
+  "name": "vanishing floor",
+  "description": "The sheer fact you can stand on this dumbfounds you, but anything left behind on this plane will vanish.",
+  "symbol": "~",
+  "color": "cyan",
+  "move_cost": 4,
+  "flags": [
+    "TRANSPARENT",
+    "NO_SCENT",
+    "DESTROY_ITEM"
+  ]
+},
+  {
+    "type": "overmap_terrain",
+    "id": [ "deletion_plane_liminal" ],
+    "name": "vanishing plane",
+    "sym": "~",
+    "color": "cyan",
+    "see_cost": "all_clear"
+  },
+{
+    "type": "mapgen",
+    "method": "json",
+    "om_terrain": "deletion_plane_liminal",
+    "object": {
+      "fill_ter": "t_glowing_floor_liminal",
+      "rows": [
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        "
+      ],
+      "terrain": {
+        " ": "t_glowing_floor_liminal"
+      }
+    }
+  }
+]

@@ -17,13 +17,13 @@
       "radio_tower_top_liminal_east",
       "open_air",
       "open_air",
-      "radio_tower_top_liminal_west",
-      "radio_tower_top_liminal_east",
-      "radio_tower_top_liminal_west",
       "open_air",
       "open_air",
       "open_air",
-      "open_air"
+      "open_air",
+      "open_air",
+      "open_air",
+      "deletion_plane_liminal_north"
     ],
     "overrides": [ "NO_CITY", "NO_FOREST_TRAIL", "NO_FOREST", "NO_SWAMP", "NO_OCEAN", "NO_RIVER" ],
     "default_groundcover": [ [ "t_region_groundcover", 1 ] ],
