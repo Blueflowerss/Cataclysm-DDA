@@ -43,10 +43,10 @@
       ]
     },
     "effect": [
-      { "math": [ "u_radiosphere_time_until_teleport", "=", "max(rand(130),20)" ] },
+      { "run_eocs": "EOC_radiosphere_countdown" },
       { "u_add_trait": "mut_radiosphere_inhabitance" },
       { "u_lose_trait": "mut_radiosphere_inhabitance" },
-      { "run_eocs": "EOC_radiosphere_countdown" }
+      { "math": [ "u_radiosphere_time_until_teleport", "=", "max(rand(130),20)" ] }
     ],
     "false_effect": [ { "math": [ "u_radiosphere_time_until_teleport", "=", "-999" ] } ]
   },
@@ -68,6 +68,7 @@
       {
         "if": { "u_in_world": "" },
         "then": [
+          {"math":["time('now')","=","trunc(time('now') / 10)"]},
           { "u_go_to_world": "radiosphere" },
           {
             "u_location_variable": { "context_val": "nearest_floor" },
@@ -94,6 +95,7 @@
           {
             "if": { "u_in_world": "radiosphere" },
             "then": [
+              {"math":["time('now')","=","trunc(time('now') * 10)"]},
               { "u_go_to_world": "default" },
               {
                 "u_location_variable": { "context_val": "nearest_radio_tower_floor" },
@@ -116,10 +118,10 @@
                 "popup_w_interrupt_query": true
               },
               { "alter_timed_events": "radiosphere_lights_off" }
-            ]
-          }
+
         ]
       }
     ]
   }
 ]
+}]
