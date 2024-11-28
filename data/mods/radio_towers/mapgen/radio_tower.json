@@ -9,29 +9,6 @@
     "see_cost": "all_clear"
   },
   {
-    "type": "terrain",
-    "id": "t_radio_tower_liminal_light",
-    "name": "radio tower",
-    "description": "The structure of a radio transmission tower, there's a bright spotlight hanging off it.",
-    "light_emitted": 50,
-    "symbol": "&",
-    "color": "light_gray",
-    "move_cost": 0,
-    "flags": [ "TRANSPARENT", "NOITEM", "PERMEABLE", "MINEABLE" ],
-    "bash": {
-      "str_min": 60,
-      "str_max": 210,
-      "sound": "metal screeching!",
-      "sound_fail": "clang!",
-      "ter_set": "t_concrete",
-      "items": [
-        { "item": "steel_lump", "count": [ 1, 2 ] },
-        { "item": "steel_chunk", "count": [ 1, 4 ] },
-        { "item": "scrap", "count": [ 3, 12 ] }
-      ]
-    }
-  },
-  {
     "type": "mapgen",
     "method": "json",
     "om_terrain": "radio_tower_top_liminal",
@@ -44,7 +21,7 @@
         "gggggggggggggggggggggggg",
         "          g,,,,g        ",
         "ggggggggggg,RR,ggggggggg",
-        "ggggggggggg,RR,ggggggggg",
+        "ggggggggggg,RX,ggggggggg",
         "          gv,,,g        ",
         "gggggggggggggggggggggggg",
         "          g gg g        ",
@@ -66,6 +43,7 @@
       "palettes": [ "roof_palette" ],
       "terrain": {
         "R": "t_radio_tower",
+        "X": [["t_radio_tower",90],["t_radio_tower_liminal_light",10]],
         "a": "t_railing",
         ",": "t_metal_floor_no_roof",
         "g": "t_grate",
@@ -73,11 +51,54 @@
       },
       "place_nested": [
         {
-          "chunks": [ [ "null", 40 ], [ "radio_tower_2x2_map", 40 ], [ "radio_tower_2x2_holdout", 10 ], [ "radio_tower_2x2_sniper", 2 ] ],
-          "x": 10,
-          "y": 5
+          "chunks": [ [ "null", 40 ], [ "mx_radio_tower_liminal_space", 5 ]],
+          "x": 9,
+          "y": 2
         }
       ]
+    }
+  },
+  {
+    "type": "mapgen",
+    "method": "json",
+    "weight":100,
+    "nested_mapgen_id": "mx_radio_tower_liminal_space",
+    "object": {
+      "mapgensize": [ 8, 8 ],
+      "rotation": [ 0, 3 ],
+      "rows": [
+        " cllllc ",
+        "ctcllctc",
+        "lcllllcl",
+        "lllcclll",
+        "lllCTlll",
+        "lcllllcl",
+        "ctcllctc",
+        " cllllc "
+      ],
+      "terrain": {
+      " ": "t_open_air",
+      "l": "t_linoleum_white",
+                    "c": "t_linoleum_white",
+                    "C": "t_linoleum_white",
+                    "t": "t_linoleum_white",
+                    "T": "t_linoleum_whitefloor_slight_liminal",
+                    "w":"t_wall_w",
+                    "W":"t_wall_glass",
+                    "d":[["t_door_glass_c",70],["t_door_glass_o",30]]
+                    },
+      "furniture":{
+      "c":[["f_null",40],["f_chair",60]],
+      "t":"f_table",
+      "T":"f_counter",
+      "C":"f_counter"
+      },
+      "items":{
+        "t": { "item": "coffee_table", "chance": 25 },
+        "C": { "item": "cash_register_random", "chance": 100 },
+        "T": { "item": "coffee_counter", "chance": 20 }
+      },
+      "flags": [ "ERASE_ALL_BEFORE_PLACING_TERRAIN" ]
     }
   }
 ]
