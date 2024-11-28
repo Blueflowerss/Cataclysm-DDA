@@ -81,7 +81,7 @@
             "then": { "u_teleport": { "context_val": "nearest_floor" } }
           },
           "next_weather",
-          { "custom_light_level": 255, "length": "9999 days", "key": "radiosphere_lights_off" },
+          { "custom_light_level": 10, "length": "9999 days", "key": "radiosphere_lights_off" },
           { "run_eocs": [ "EOC_radiosphere_light_deactivate" ] },
           {
             "u_message": "you feel a electrostatic buzz in the air.",
