@@ -68,7 +68,6 @@
       {
         "if": { "u_in_world": "" },
         "then": [
-          {"math":["time('now')","=","trunc(time('now') / 10)"]},
           { "u_go_to_world": "radiosphere" },
           {
             "u_location_variable": { "context_val": "nearest_floor" },
@@ -95,7 +94,6 @@
           {
             "if": { "u_in_world": "radiosphere" },
             "then": [
-              {"math":["time('now')","=","trunc(time('now') * 10)"]},
               { "u_go_to_world": "default" },
               {
                 "u_location_variable": { "context_val": "nearest_radio_tower_floor" },
