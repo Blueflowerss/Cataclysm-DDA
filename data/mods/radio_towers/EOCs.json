@@ -116,10 +116,10 @@
                 "popup_w_interrupt_query": true
               },
               { "alter_timed_events": "radiosphere_lights_off" }
-
+            ]
+          }
         ]
       }
     ]
   }
 ]
-}]
