@@ -32,6 +32,7 @@ class multiworld
         struct subworld_settings {
             bool is_temporary = false;
             bool parallel_world = false;
+            int seconds_per_one_second = 1;
             std::string region_type = "default";
         };
         multiworld();
@@ -44,6 +45,7 @@ class multiworld
         bool create_or_modify_world( const std::string &prefix );
         //currently just the player
         bool travel_to_world( const std::string &prefix );
+        void adjust_time( const std::string &prefix);
         std::string get_world_region_type( const std::string &world_prefix );
         std::string get_current_world_region_type();
     private:

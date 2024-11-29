@@ -35,6 +35,11 @@ bool multiworld::create_or_modify_world( const std::string &prefix )
     subworld_manifest[prefix] = subworld_settings();
     return true;
 }
+void multiworld::adjust_time( const std::string &prefix)
+{
+
+}
+
 bool multiworld::travel_to_world( const std::string &prefix )
 {
     map &here = get_map();

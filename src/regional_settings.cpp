@@ -495,6 +495,11 @@ void load_region_settings( const JsonObject &jo )
     if( !jo.read( "id", new_region.id ) ) {
         jo.throw_error( "No 'id' field." );
     }
+    if( jo.has_float( "time_dilation_factor ")) {
+        new_region.time_dilation_factor = jo.get_float( "time_dilation_factor" );
+    }else {
+        new_region.time_dilation_factor = 1;
+    }
     bool strict = new_region.id == "default";
     if( jo.has_array( "overrides" ) ) {
         auto overrides = jo.get_array( "overrides" );
