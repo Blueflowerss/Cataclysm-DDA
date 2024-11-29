@@ -5361,7 +5361,7 @@ bool game::revive_corpse( const tripoint &p, item &it, int radius )
     }
     // If this is not here, the game may attempt to spawn a monster before the map exists,
     // leading to it querying for furniture, and crashing.
-    if( g->new_game ) {
+    if( g->new_game || g->swapping_worlds ) {
         return false;
     }
     if( it.has_flag( flag_FIELD_DRESS ) || it.has_flag( flag_FIELD_DRESS_FAILED ) ||
@@ -10503,7 +10503,7 @@ bool game::walk_move( const tripoint &dest_loc, const bool via_ramp, const bool 
     if( !shifting_furniture && !pushing && is_dangerous_tile( dest_loc ) ) {
         std::vector<std::string> harmful_stuff = get_dangerous_tile( dest_loc );
         if( harmful_stuff.size() == 1 && harmful_stuff[0] == "ledge" ) {
-            iexamine::ledge( u, dest_loc );
+            iexamine::ledge( u, tripoint_bub_ms( dest_loc ) );
             return true;
         } else if( get_option<std::string>( "DANGEROUS_TERRAIN_WARNING_PROMPT" ) == "ALWAYS" &&
                    !prompt_dangerous_tile( dest_loc ) ) {
@@ -10912,7 +10912,7 @@ point game::place_player( const tripoint &dest_loc, bool quick )
 
         const std::string forage_type = get_option<std::string>( "AUTO_FORAGING" );
         if( forage_type != "off" ) {
-            const auto forage = [&]( const tripoint & pos ) {
+            const auto forage = [&]( const tripoint_bub_ms & pos ) {
                 const ter_t &xter_t = *m.ter( pos );
                 const furn_t &xfurn_t = *m.furn( pos );
                 const bool forage_everything = forage_type == "all";
@@ -10939,7 +10939,7 @@ point game::place_player( const tripoint &dest_loc, bool quick )
             };
 
             for( const direction &elem : adjacentDir ) {
-                forage( u.pos() + displace_XY( elem ) );
+                forage( u.pos_bub() + displace_XY( elem ) );
             }
         }
 
@@ -13770,7 +13770,6 @@ void game::climb_down_using( const tripoint &examp, climbing_aid_id aid_id, bool
         }
     }
 }
-
 namespace cata_event_dispatch
 {
 void avatar_moves( const tripoint &old_abs_pos, const avatar &u, const map &m )

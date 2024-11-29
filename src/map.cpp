@@ -11190,7 +11190,6 @@ bool map::has_haulable_items( const tripoint_bub_ms &pos )
     }
     return false;
 }
-
 std::vector<item_location> map::get_haulable_items( const tripoint &pos )
 {
     std::vector<item_location> target_items;
