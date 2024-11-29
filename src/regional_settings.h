@@ -275,7 +275,6 @@ struct regional_settings {
     std::string id;           //
     std::array<oter_str_id, OVERMAP_LAYERS> default_oter;
     double river_scale = 1;
-    float time_dilation_factor;
     weighted_int_list<ter_id> default_groundcover; // i.e., 'grass_or_dirt'
     shared_ptr_fast<weighted_int_list<ter_str_id>> default_groundcover_str;
     bool no_city = false;

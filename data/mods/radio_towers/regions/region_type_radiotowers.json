@@ -25,7 +25,6 @@
       "open_air",
       "deletion_plane_liminal_north"
     ],
-    "time_dilation_factor":2,
     "overrides": [ "NO_CITY", "NO_FOREST_TRAIL", "NO_FOREST", "NO_SWAMP", "NO_OCEAN", "NO_RIVER" ],
     "default_groundcover": [ [ "t_region_groundcover", 1 ] ],
     "region_terrain_and_furniture": {
