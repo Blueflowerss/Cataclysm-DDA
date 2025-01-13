@@ -1,5 +1,105 @@
 [
   {
+    "id": "worlds_swap",
+    "type": "SPELL",
+    "name": "swap worlds",
+    "description": "swaps between worlds.",
+    "teachable": false,
+    "valid_targets": [ "self" ],
+    "spell_class": "NONE",
+    "flags": [ "PSIONIC", "SILENT", "NO_PROJECTILE", "NO_HANDS", "NO_LEGS", "NO_EXPLOSION_SFX" ],
+    "difficulty": 2,
+    "max_level": 1,
+    "effect": "effect_on_condition",
+    "effect_str": "EOC_world_swap_suburbs",
+    "shape": "blast",
+    "energy_source": "STAMINA",
+    "base_energy_cost": 2500,
+    "final_energy_cost": 1000,
+    "energy_increment": -115,
+    "base_casting_time": 150,
+    "final_casting_time": 75,
+    "casting_time_increment": -6.5
+  },
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_world_swap_suburbs",
+    "//": "shifts the character to radiosphere world or back",
+    "effect": [
+      {
+        "if": { "u_in_world": "" },
+        "then": [
+          { "u_go_to_world": "suburbs" }],
+        "else":[
+          { "u_go_to_world": "default" }]
+      }
+        ]
+  },
+  {
+    "type": "overmap_connection",
+    "id": "local_road_flatland",
+    "subtypes": [
+      { "terrain": "road", "locations": [ "road" ], "basic_cost": 0, "flags": [ "ORTHOGONAL" ] },
+      { "terrain": "road", "locations": [ "concrete_flatland_location" ], "basic_cost": 5 },
+      { "terrain": "road", "locations": [ "forest" ], "basic_cost": 20 },
+      { "terrain": "road", "locations": [ "swamp" ], "basic_cost": 40 },
+      { "terrain": "road_nesw_manhole", "locations": [  ] },
+      { "terrain": "bridge", "locations": [ "water" ], "basic_cost": 120 },
+      { "terrain": "bridgehead_ground", "locations": [ "water" ], "basic_cost": 120, "flags": [ "ORTHOGONAL" ] }
+    ]
+  },
+  {
+    "type": "overmap_location",
+    "id": "concrete_flatland_location",
+    "terrains": [ "concrete_flatland" ]
+  },
+    {
+    "type": "overmap_terrain",
+    "id": "concrete_flatland",
+    "see_cost": "none",
+    "name": "field",
+    "looks_like": "field",
+    "vision_levels": "open_land",
+    "sym": ",",
+    "color": "light_gray",
+    "flags": [ "NO_ROTATE" ]
+  },
+  {
+    "type": "mapgen",
+    "method": "json",
+    "om_terrain": [ [ "concrete_flatland" ] ],
+    "weight": 100,
+    "object": {
+      "fill_ter": "t_thconc_floor",
+      "rows": [
+        "........................",
+        "........................",
+        "........................",
+        "........................",
+        "........................",
+        "........................",
+        "........................",
+        "........................",
+        "........................",
+        "........................",
+        "........................",
+        "........................",
+        "........................",
+        "........................",
+        "........................",
+        "........................",
+        "........................",
+        "........................",
+        "........................",
+        "........................",
+        "........................",
+        "........................",
+        "........................",
+        "........................"
+      ],
+      "terrain": { ".": "t_thconc_floor" }
+      }},
+    {
     "type": "region_settings",
     "id": "suburbs",
     "default_oter": [
@@ -13,7 +113,7 @@
       "open_air",
       "open_air",
       "open_air",
-      "field",
+      "concrete_flatland",
       "solid_earth",
       "empty_rock",
       "empty_rock",
@@ -25,6 +125,7 @@
       "deep_rock",
       "deep_rock"
     ],
+    "overrides": [ "NO_FOREST_TRAIL", "NO_FOREST", "NO_SWAMP", "NO_OCEAN", "NO_RIVER" ],
     "default_groundcover": [ [ "t_region_groundcover", 1 ] ],
     "region_terrain_and_furniture": {
       "terrain": {
@@ -67,8 +168,8 @@
       "river_floodplain_buffer_distance_max": 0
     },
     "overmap_connection_settings": {
-      "intra_city_road_connection": "local_road",
-      "inter_city_road_connection": "local_road",
+      "intra_city_road_connection": "local_road_flatland",
+      "inter_city_road_connection": "local_road_flatland",
       "trail_connection": "forest_trail",
       "sewer_connection": "sewer_tunnel",
       "subway_connection": "subway_tunnel",
