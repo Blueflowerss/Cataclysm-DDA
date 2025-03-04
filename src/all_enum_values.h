@@ -3,7 +3,7 @@
 #define CATA_SRC_ALL_ENUM_VALUES_H
 
 #include "enum_traits.h"
-
+// remove
 template<typename E>
 constexpr size_t num_enum_values()
 {
