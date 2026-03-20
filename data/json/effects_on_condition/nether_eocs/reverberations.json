@@ -3,13 +3,14 @@
     "type": "effect_on_condition",
     "id": "EOC_REVERBERATION_ENTER",
     "effect": [
+      { "u_add_effect": "blind", "duration": 1 },
       {
         "if": { "or": [ { "u_at_om_location": "radio_tower_top" }, { "u_at_om_location": "wasp_tower_top" } ] },
-        "then": { "run_eocs": "EOC_PORTAL_RADIOSPHERE" }
+        "then": { "run_eocs": "EOC_PORTAL_RADIOSPHERE", "time_in_future": 1 }
       },
       {
         "if": { "or": [ { "u_at_om_location": "cabin_roof_3" }, { "u_at_om_location": "cabin_roof_3_reverberation_hint" } ] },
-        "then": { "run_eocs": "EOC_PORTAL_CABINS" }
+        "then": { "run_eocs": "EOC_PORTAL_CABINS", "time_in_future": 1 }
       }
     ]
   },
@@ -106,21 +107,33 @@
     "id": "EOC_PORTAL_CABINS",
     "condition": { "and": [ { "test_eoc": "EOC_PORTAL_STORM_CONDITION_FLAG_PORTAL_PROOF" }, { "not": "u_driving" } ] },
     "effect": [
-      { "u_add_effect": "blind", "duration": 0 },
+      { "u_location_variable": { "context_val": "cabin" }, "z_adjust": -1 },
+      { "u_location_variable": { "context_val": "cabin_underground" }, "z_adjust": -2 },
+      { "u_location_variable": { "context_val": "cabin_roof" } },
+      {
+        "copy_location": { "context_val": "cabin" },
+        "new_loc": { "context_val": "cabin" },
+        "time_in_future": 0,
+        "key": "cabin_key"
+      },
+      {
+        "copy_location": { "context_val": "cabin_roof" },
+        "new_loc": { "context_val": "cabin_roof" },
+        "time_in_future": 0,
+        "key": "cabin_roof_key"
+      },
+      {
+        "copy_location": { "context_val": "cabin_underground" },
+        "new_loc": { "context_val": "cabin_underground" },
+        "time_in_future": 0,
+        "key": "cabin_underground_key"
+      },
       {
         "u_travel_to_dimension": "cabins",
         "npc_travel_radius": 0,
         "region_type": "cabins",
         "npc_travel_filter": "none"
       },
-      {
-        "u_location_variable": { "context_val": "nearest_floor" },
-        "terrain": "t_tar_flat_roof",
-        "target_max_radius": 60,
-        "min_radius": 0,
-        "max_radius": 0
-      },
-      { "u_teleport": { "context_val": "nearest_floor" } },
       { "u_message": "Your surroundings change.", "popup": true, "popup_w_interrupt_query": true },
       { "run_eocs": "EOC_PORTAL_CABINS_RETURN", "time_in_future": [ "6 hours", "12 hours" ] },
       { "run_eocs": [ "EOC_CABIN_DAY_CYCLE_OR_KILL_CYCLE" ] },
