@@ -25,7 +25,7 @@
         "then": { "run_eocs": "EOC_PORTAL_RADIOSPHERE_RETURN", "time_in_future": 1 }
       },
       {
-        "if": { "current_dimension": "radiosphere" },
+        "if": { "current_dimension": "cabins" },
         "then": { "run_eocs": "EOC_PORTAL_CABINS_RETURN", "time_in_future": 1 }
       }
     ]
@@ -138,7 +138,18 @@
     "id": "EOC_PORTAL_CABINS",
     "condition": { "and": [ { "test_eoc": "EOC_PORTAL_STORM_CONDITION_FLAG_PORTAL_PROOF" }, { "not": "u_driving" } ] },
     "effect": [
-      { "u_travel_to_dimension": "cabins", "npc_travel_radius": 0, "region_type": "cabins", "npc_travel_filter": "none" },
+      { "u_location_variable": { "global_val": "reverberation_cabin_roof" } },
+      { "u_location_variable": { "global_val": "reverberation_cabin" }, "z_adjust": -1 },
+      { "u_location_variable": { "global_val": "reverberation_cabin_underground" }, "z_adjust": -2 },
+      { "revert_location": { "global_val": "reverberation_cabin_roof" }, "time_in_future": 0 },
+      { "revert_location": { "global_val": "reverberation_cabin" }, "time_in_future": 0 },
+      { "revert_location": { "global_val": "reverberation_cabin_underground" }, "time_in_future": 0 },
+      {
+        "u_travel_to_dimension": "cabins",
+        "npc_travel_radius": 0,
+        "region_type": "cabins",
+        "npc_travel_filter": "none"
+      },
       { "u_location_variable": { "global_val": "cabins_return_location" }, "z_override": true, "z_adjust": 0 },
       { "run_eocs": "EOC_REVERBERATION_EXIT", "time_in_future": [ "6 hours", "12 hours" ] },
       { "math": [ "u_ire -= 5" ] }
@@ -155,6 +166,9 @@
       ]
     },
     "effect": [
+      { "revert_location": { "global_val": "reverberation_cabin_roof" }, "time_in_future": 0 },
+      { "revert_location": { "global_val": "reverberation_cabin" }, "time_in_future": 0 },
+      { "revert_location": { "global_val": "reverberation_cabin_underground" }, "time_in_future": 0 },
       {
         "u_travel_to_dimension": "",
         "npc_travel_radius": 0,
