@@ -107,5 +107,24 @@
     "travel_cost_type": "structure",
     "see_cost": "high",
     "mondensity": 0
+  },
+  {
+    "type": "overmap_terrain",
+    "id": [ "ink_sea" ],
+    "name": "ink sea",
+    "sym": "~",
+    "color": "c_magenta",
+    "mondensity": 1,
+    "see_cost": "none",
+    "spawns": { "group": "GROUP_INK_SEA", "population": [ 1, 5 ], "chance": 60 }
+  },
+  {
+    "type": "overmap_terrain",
+    "id": [ "plastic_beach" ],
+    "name": "plastic beach",
+    "sym": "#",
+    "color": "c_yellow",
+    "mondensity": 1,
+    "see_cost": "none"
   }
 ]

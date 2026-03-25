@@ -1,16 +1,5 @@
 [
   {
-    "type": "weather_generator",
-    "id": "reverberation_rainy_weather",
-    "base_temperature": 4.5,
-    "base_humidity": 70.0,
-    "base_pressure": 1015.0,
-    "base_wind": 2.0,
-    "base_wind_distrib_peaks": 80,
-    "base_wind_season_variation": 0,
-    "weather_white_list": [ "clear", "cloudy", "light_drizzle", "rain", "mist", "fog" ]
-  },
-  {
     "type": "region_settings",
     "id": "radiosphere",
     "rivers": null,
@@ -165,6 +154,83 @@
     }
   },
   {
+    "type": "region_settings",
+    "id": "ink_sea",
+    "rivers": null,
+    "lakes": "ink_sea_lake",
+    "ocean": "ink_sea_ocean",
+    "ravines": null,
+    "forests": null,
+    "forest_trails": null,
+    "highways": null,
+    "cities": null,
+    "forest_composition": "no_forests",
+    "map_extras": "no_map_extras",
+    "terrain_furniture": "default",
+    "weather": "reverberation_rainy_weather",
+    "place_roads": false,
+    "place_specials": false,
+    "neighbor_connections": false,
+    "default_oter": [
+      "open_air",
+      "open_air",
+      "open_air",
+      "open_air",
+      "open_air",
+      "open_air",
+      "open_air",
+      "open_air",
+      "open_air",
+      "open_air",
+      "plastic_beach_north",
+      "deep_rock",
+      "deep_rock",
+      "deep_rock",
+      "deep_rock",
+      "deep_rock",
+      "deep_rock",
+      "deep_rock",
+      "deep_rock",
+      "deep_rock",
+      "deep_rock"
+    ],
+    "default_groundcover": [ [ "t_region_groundcover", 1 ] ],
+    "connections": {
+      "intra_city_road_connection": "local_road",
+      "inter_city_road_connection": "local_road",
+      "trail_connection": "forest_trail",
+      "sewer_connection": "sewer_tunnel",
+      "subway_connection": "subway_tunnel",
+      "rail_connection": "local_railroad"
+    }
+  },
+  {
+    "type": "region_settings_ocean",
+    "id": "ink_sea_ocean",
+    "noise_threshold_ocean": 0.1,
+    "ocean_size_min": 100,
+    "ocean_depth": -1,
+    "ocean_start_north": 0,
+    "ocean_start_east": 0,
+    "ocean_start_west": 0,
+    "ocean_start_south": 0,
+    "sandy_beach_width": 6
+  },
+  {
+    "type": "region_settings_lake",
+    "id": "ink_sea_lake",
+    "noise_threshold_lake": 0.25,
+    "lake_size_min": 20,
+    "lake_depth": -1,
+    "shore_extendable_overmap_terrain": [ "forest", "forest_thick", "forest_water", "field" ],
+    "shore_extendable_overmap_terrain_aliases": [
+      { "om_terrain": "island_forest", "om_terrain_match_type": "TYPE", "alias": "forest" },
+      { "om_terrain": "island_forest_thick", "om_terrain_match_type": "TYPE", "alias": "forest_thick" },
+      { "om_terrain": "island_forest_water", "om_terrain_match_type": "TYPE", "alias": "forest_water" },
+      { "om_terrain": "island_field", "om_terrain_match_type": "TYPE", "alias": "field" }
+    ]
+  },
+  {
     "type": "weather_generator",
     "id": "inner_cabins_weather",
     "base_temperature": 4.5,
@@ -182,5 +248,16 @@
     "autumn_humidity_manual_mod": 0,
     "winter_humidity_manual_mod": 0,
     "weather_black_list": [ "flurries", "snowing", "snowstorm", "light_drizzle", "sunny", "drizzle", "rain", "rainstorm", "thunder", "lightning" ]
+  },
+  {
+    "type": "weather_generator",
+    "id": "reverberation_rainy_weather",
+    "base_temperature": 4.5,
+    "base_humidity": 70.0,
+    "base_pressure": 1015.0,
+    "base_wind": 2.0,
+    "base_wind_distrib_peaks": 80,
+    "base_wind_season_variation": 0,
+    "weather_white_list": [ "clear", "cloudy", "light_drizzle", "rain", "mist", "fog" ]
   }
 ]

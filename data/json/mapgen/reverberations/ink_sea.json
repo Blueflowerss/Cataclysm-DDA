@@ -1,0 +1,342 @@
+[
+  {
+    "type": "mapgen",
+    "om_terrain": [ "ink_sea" ],
+    "weight": 500,
+    "object": {
+      "fill_ter": "t_ink_sh",
+      "rows": [
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        "
+      ],
+      "flags": [ "ALLOW_TERRAIN_UNDER_OTHER_DATA" ],
+      "place_nested": [ { "chunks": [ "mx_ink_sea" ], "x": 0, "y": 0 } ]
+    }
+  },
+  {
+    "type": "mapgen",
+    "om_terrain": [ "plastic_beach" ],
+    "weight": 500,
+    "object": {
+      "fill_ter": "t_ink_sh",
+      "rows": [
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        "
+      ],
+      "flags": [ "ALLOW_TERRAIN_UNDER_OTHER_DATA" ],
+      "place_nested": [
+        { "chunks": [ "mx_plastic_beach" ], "x": 0, "y": 0 },
+        {
+          "chunks": [ "mx_ink_sea_corner_N" ],
+          "x": 0,
+          "y": 0,
+          "neighbors": { "north": [ "ink_sea", "backfloorchamber" ] }
+        },
+        {
+          "chunks": [ "mx_ink_sea_corner_W" ],
+          "x": 0,
+          "y": 0,
+          "neighbors": { "west": [ "ink_sea", "backfloorchamber" ] }
+        },
+        {
+          "chunks": [ "mx_ink_sea_corner_E" ],
+          "x": 0,
+          "y": 0,
+          "neighbors": { "east": [ "ink_sea", "backfloorchamber" ] }
+        },
+        {
+          "chunks": [ "mx_ink_sea_corner_S" ],
+          "x": 0,
+          "y": 0,
+          "neighbors": { "south": [ "ink_sea", "backfloorchamber" ] }
+        }
+      ]
+    }
+  },
+  {
+    "type": "palette",
+    "id": "ink_sea_palette",
+    "terrain": { "-": "t_ink_dp", "w": "t_ink_sh" },
+    "fields": { "-": [ { "field": "fd_ink_dp" } ] }
+  },
+  {
+    "id": "fd_ink_dp",
+    "type": "field_type",
+    "intensity_levels": [
+      {
+        "name": "ink blot",
+        "sym": " ",
+        "color": "black",
+        "transparent": true,
+        "effects": [
+          {
+            "effect_id": "ink_blot",
+            "intensity": 1,
+            "min_duration": "10 s",
+            "immune_inside_vehicle": true,
+            "is_environmental": false
+          }
+        ]
+      }
+    ],
+    "priority": 2,
+    "phase": "solid",
+    "display_items": true,
+    "display_field": true
+  },
+  {
+    "type": "mapgen",
+    "nested_mapgen_id": "mx_ink_sea",
+    "object": {
+      "mapgensize": [ 24, 24 ],
+      "rows": [
+        "------------------------",
+        "------------------------",
+        "------------------------",
+        "------------------------",
+        "------------------------",
+        "------------------------",
+        "------------------------",
+        "------------------------",
+        "------------------------",
+        "------------------------",
+        "------------------------",
+        "------------------------",
+        "------------------------",
+        "------------------------",
+        "------------------------",
+        "------------------------",
+        "------------------------",
+        "------------------------",
+        "------------------------",
+        "------------------------",
+        "------------------------",
+        "------------------------",
+        "------------------------",
+        "------------------------"
+      ],
+      "palettes": [ "ink_sea_palette" ],
+      "flags": [ "ERASE_ALL_BEFORE_PLACING_TERRAIN" ]
+    }
+  },
+  {
+    "type": "mapgen",
+    "nested_mapgen_id": "mx_plastic_beach",
+    "object": {
+      "mapgensize": [ 24, 24 ],
+      "rows": [
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        "
+      ],
+      "terrain": { " ": "t_plastic_sand" },
+      "flags": [ "ERASE_ALL_BEFORE_PLACING_TERRAIN" ],
+      "palettes": [ "ink_sea_palette" ]
+    }
+  },
+  {
+    "type": "mapgen",
+    "nested_mapgen_id": "mx_ink_sea_corner_W",
+    "object": {
+      "mapgensize": [ 24, 24 ],
+      "rows": [
+        "-www                    ",
+        "---www                  ",
+        "----www                 ",
+        "-----www                ",
+        "------www               ",
+        "------www               ",
+        "------www               ",
+        "-------www              ",
+        "-------www              ",
+        "------www               ",
+        "-------www              ",
+        "-------www              ",
+        "-------www              ",
+        "------www               ",
+        "------www               ",
+        "------www               ",
+        "----www                 ",
+        "----www                 ",
+        "-----www                ",
+        "----www                 ",
+        "---www                  ",
+        "--www                   ",
+        "-www                    ",
+        "-www                    "
+      ],
+      "flags": [ "ERASE_ALL_BEFORE_PLACING_TERRAIN" ],
+      "palettes": [ "ink_sea_palette" ]
+    }
+  },
+  {
+    "type": "mapgen",
+    "nested_mapgen_id": "mx_ink_sea_corner_S",
+    "object": {
+      "mapgensize": [ 24, 24 ],
+      "rows": [
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "       ww www           ",
+        "    wwwwwwwwwwww        ",
+        "   wwwwwwwwwwwww  w     ",
+        "  wwwww--w---wwwwwww    ",
+        " www------------wwwww   ",
+        " ww-------------ww-www  ",
+        "ww------------------wwww",
+        "w--------------------www",
+        "w---------------------ww",
+        "------------------------"
+      ],
+      "flags": [ "ERASE_ALL_BEFORE_PLACING_TERRAIN" ],
+      "palettes": [ "ink_sea_palette" ]
+    }
+  },
+  {
+    "type": "mapgen",
+    "nested_mapgen_id": "mx_ink_sea_corner_E",
+    "object": {
+      "mapgensize": [ 24, 24 ],
+      "rows": [
+        "                    www-",
+        "                    www-",
+        "                   www--",
+        "                  www---",
+        "                 www----",
+        "                www-----",
+        "                 www----",
+        "                 www----",
+        "               www------",
+        "               www------",
+        "               www------",
+        "              www-------",
+        "              www-------",
+        "              www-------",
+        "               www------",
+        "              www-------",
+        "              www-------",
+        "               www------",
+        "               www------",
+        "               www------",
+        "                www-----",
+        "                 www----",
+        "                  www---",
+        "                    www-"
+      ],
+      "flags": [ "ERASE_ALL_BEFORE_PLACING_TERRAIN" ],
+      "palettes": [ "ink_sea_palette" ]
+    }
+  },
+  {
+    "type": "mapgen",
+    "nested_mapgen_id": "mx_ink_sea_corner_N",
+    "object": {
+      "mapgensize": [ 24, 24 ],
+      "rows": [
+        "------------------------",
+        "ww---------------------w",
+        "www--------------------w",
+        "wwww------------------ww",
+        "  www-ww-------------ww ",
+        "   wwwww------------www ",
+        "    wwwwwww---w--wwwww  ",
+        "     w  wwwwwwwwwwwww   ",
+        "        wwwwwwwwwwww    ",
+        "           www ww       ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        ",
+        "                        "
+      ],
+      "flags": [ "ERASE_ALL_BEFORE_PLACING_TERRAIN" ],
+      "palettes": [ "ink_sea_palette" ]
+    }
+  }
+]
